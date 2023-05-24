@@ -1170,6 +1170,7 @@ class PdfFormHelper {
                     }
                   }
                 }
+                // ignore: unnecessary_null_comparison
                 if (annots != null && annots.contains(holder)) {
                   annots.remove(holder);
                   annots.changed = true;

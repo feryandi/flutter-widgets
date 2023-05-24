@@ -502,19 +502,23 @@ abstract class PdfField implements IPdfWrapper {
               PdfPageHelper.getHelper(loadedPage).obtainAnnotations();
           if (lAnnots != null) {
             for (int i = 0; i < lAnnots.count; i++) {
-              final PdfReferenceHolder holder =
-                  lAnnots[i]! as PdfReferenceHolder;
-              if (holder.reference!.objNum == widgetReference.objNum &&
-                  holder.reference!.genNum == widgetReference.genNum) {
-                page = loadedPage;
-                return page;
-              } else if (_fieldHelper.requiredReference != null &&
-                  _fieldHelper.requiredReference!.reference!.objNum ==
-                      holder.reference!.objNum &&
-                  _fieldHelper.requiredReference!.reference!.genNum ==
-                      holder.reference!.genNum) {
-                page = loadedPage;
-                return page;
+              final IPdfPrimitive? holder = lAnnots[i];
+              if (holder != null &&
+                  holder is PdfReferenceHolder &&
+                  holder.reference != null) {
+                if (holder.reference!.objNum == widgetReference.objNum &&
+                    holder.reference!.genNum == widgetReference.genNum) {
+                  page = loadedPage;
+                  return page;
+                } else if (_fieldHelper.requiredReference != null &&
+                    _fieldHelper.requiredReference!.reference != null &&
+                    _fieldHelper.requiredReference!.reference!.objNum ==
+                        holder.reference!.objNum &&
+                    _fieldHelper.requiredReference!.reference!.genNum ==
+                        holder.reference!.genNum) {
+                  page = loadedPage;
+                  return page;
+                }
               }
             }
           }
