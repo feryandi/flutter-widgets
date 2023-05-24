@@ -88,7 +88,6 @@ class PdfPageCollection {
     PdfPage page;
     if (PdfDocumentHelper.getHelper(_helper.document!).isLoadedDocument) {
       page = insert(count);
-      PdfPageHelper.getHelper(page).document = _helper.document;
     } else {
       page = PdfPage();
       PdfPageHelper.getHelper(page).isNewPage = true;
@@ -187,6 +186,7 @@ class PdfPageCollection {
     PdfPageLayerHelper.getHelper(
             PdfGraphicsHelper.getHelper(page.graphics).layer!)
         .colorSpace = _helper.document!.colorSpace;
+    PdfPageHelper.getHelper(page).document = _helper.document;
     return page;
   }
 
