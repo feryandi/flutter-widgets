@@ -1597,7 +1597,8 @@ class PdfGridLayouter extends ElementLayouter {
     }
     flag = false;
     if (index == PdfSectionHelper.getHelper(section).count - 1) {
-      nextPage = PdfPage();
+      final PdfDocument doc = PdfPageHelper.getHelper(_currentPage!).document!;
+      nextPage = doc.pages.add();
       PdfSectionHelper.getHelper(section).isNewPageSection = true;
       PdfSectionHelper.getHelper(section).add(nextPage);
       PdfSectionHelper.getHelper(section).isNewPageSection = false;
